@@ -4,6 +4,8 @@ import Home from "./pages/home";
 import Footer from "./utlis/footer";
 import Lottie from "react-lottie";
 import * as animationData from "./animations/animations.json";
+import ThemeToggle from './utlis/themetoggler'
+
 const App = () => {
   const [youtubeID] = useState('asjdflj')
   const defaultOptions = {
@@ -17,6 +19,7 @@ const App = () => {
   const [page, setPage] = useState(1);
   return (
     <div className="bg-white border-gray-200 dark:bg-teal-950 dark:text-white">
+      
       <Navbar />
       {page ? (
         <div>

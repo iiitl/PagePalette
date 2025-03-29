@@ -40,7 +40,7 @@ const Home = () => {
       function setRenderSelection(cfiRange, contents) {
         if (rendition) {
           console.log("this" + selections[0]);
-
+  
           setSelections([
             {
               text: rendition.getRange(cfiRange).toString(),
@@ -59,14 +59,14 @@ const Home = () => {
       };
     }
   }, [setSelections, rendition]);
-
+  
   useEffect(() => {
     if (send && selections.length > 0) {
-      // Added check for selections length
       async function fetchData() {
         console.log("fetching " + selections[selections.length - 1]?.text);
         let data = { inputs: selections[selections.length - 1]?.text };
-        setSendDisabled(true)
+        setSendDisabled(true);
+        
         const response = await fetch(
           `https://api-inference.huggingface.co/models/${models[modelno]}`,
           {
@@ -77,19 +77,25 @@ const Home = () => {
             body: JSON.stringify(data),
           }
         );
-
+  
         const result = await response.blob();
         const url = window.URL.createObjectURL(result);
         setImage([
           ...image,
           { url: url, text: selections[selections.length - 1]?.text },
         ]);
-        setSend(false); 
-        setSendDisabled(false)
+  
+        // Fix: Clear selection after request is sent
+        setSelections([]); 
+        rendition?.annotations.remove(selections[0]?.cfiRange, "highlight");
+  
+        setSend(false);
+        setSendDisabled(false);
       }
       fetchData();
     }
   }, [send]);
+  
 
   return (
     <div

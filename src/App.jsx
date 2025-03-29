@@ -299,10 +299,11 @@ const App = () => {
           </div>
           <div className="flex justify-center m-5">
           <iframe
-            className="video"
+            className="w-full max-w-2xl aspect-video rounded-lg shadow-lg"
             title="Youtube player"
             sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
-            src={`https://youtube.com/embed/${youtubeID}?autoplay=0`}
+            src="https://www.youtube.com/embed/eGSUvfVt3k4?autoplay=0"
+            allowFullScreen
           ></iframe>
           </div>
         </div>

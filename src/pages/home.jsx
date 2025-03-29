@@ -278,7 +278,7 @@ const Home = () => {
                 <a href="#">
                   <img class="rounded-t-lg" src={url} alt="Wait for 5 min before sending another request or change api or contact Gaurav" />
                 </a>
-                <div class="p-5">
+                <div class="p-5 max-h-48 overflow-y-auto ">
                   <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                     {text}
                   </p>

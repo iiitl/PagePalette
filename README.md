@@ -55,19 +55,27 @@ Visit http://localhost:3000 to access the frontend! 🎉
 1. 🍴 Fork the repository
 2.  🔄Clone Your Forked Repository 
 ``` bash
-git clone https://your-repo-url.git
+git clone https://github.com/<your github username>/PagePalette.git
 ```
 
 3. 🌱 Create a new branch:
 ``` bash
+git checkout -b feature/AmazingFeature
+```
+4. ➕Stage your changes
+```bash
+git add .
+```
+5. 💥Commit your changes
+```bash
 git commit -m 'Add AmazingFeature'
 ```
 
-4. 🚀 Push your branch:
+6. 🚀 Push your branch:
 ``` bash
 git push origin feature/AmazingFeature
 ```
-5. 🎉 Open a Pull Request
+7. 🎉 Open a Pull Request
 
 Your contributions make PagePalette better! 🔥
 

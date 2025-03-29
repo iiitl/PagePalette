@@ -1,11 +1,11 @@
-import React, { useState  } from "react";
+import React, { useState } from "react";
 import Navbar from "./utlis/navbar";
 import Home from "./pages/home";
 import Footer from "./utlis/footer";
 import Lottie from "react-lottie";
 import * as animationData from "./animations/animations.json";
 const App = () => {
-  const [youtubeID] = useState('asjdflj')
+  const [youtubeID] = useState("asjdflj");
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -43,7 +43,6 @@ const App = () => {
                 <div className="link flex">
                   <a
                     className="font-semibold py-3 px-6 hover:underline"
-                   
                     href=""
                   >
                     Watch Video Tutorial
@@ -52,18 +51,30 @@ const App = () => {
               </div>
             </div>
             <div className="lotte">
-              <Lottie
-                options={defaultOptions}
-                height={400}
-                width={400}
-              />
+              <Lottie options={defaultOptions} height={400} width={400} />
             </div>
           </div>
-          <div className="p-6   bg-yellow-50 dark:bg-teal-900 ">
+          <div className="flex-row items-center m-5">
+            <div className="video-container relative w-full max-w-xl h-72 flex justify-center items-center mx-auto bg-gray-100 dark:bg-teal-800 rounded-lg shadow-lg border border-gray-300 dark:border-teal-700">
+              <iframe
+                className="w-full h-full rounded-lg"
+                title="Youtube player"
+                sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                src={`https://www.youtube.com/embed/eGSUvfVt3k4`}
+                allowFullScreen
+              ></iframe>
+            </div>
+            <p className="video-description mt-4 text-center text-gray-700 dark:text-gray-300 text-base">
+              Watch our introduction video to learn more about PagePalette!
+            </p>
+          </div>
+          <div className="p-6 bg-yellow-50 dark:bg-teal-900">
             <div className="font-bold flex justify-center text-2xl">
               Product was Built Specifically for You
             </div>
-            <div className="flex p-5 justify-evenly flex-wrap ">
+            <div className="flex p-5 justify-evenly flex-wrap">
               <div className="card p-5">
                 <div class="max-w-sm p-6  ">
                   <svg
@@ -296,14 +307,6 @@ const App = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="flex justify-center m-5">
-          <iframe
-            className="video"
-            title="Youtube player"
-            sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
-            src={`https://youtube.com/embed/${youtubeID}?autoplay=0`}
-          ></iframe>
           </div>
         </div>
       ) : (

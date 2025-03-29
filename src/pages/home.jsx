@@ -95,7 +95,17 @@ const Home = () => {
       fetchData();
     }
   }, [send]);
-  
+
+  const deleteImage = (deleteURL) => {
+    setImage((prev) => {
+      const temp = prev.slice()
+      return temp.filter(({ url }) => url !== deleteURL);
+    })
+  }
+
+  const deleteAllImages = () => {
+    return window.confirm("Are you sure you want to delete all images?") && setImage([]);
+  }
 
   return (
     <div
@@ -265,6 +275,13 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <div className="mx-9 px-6">
+        {image.length !== 0 && <button className="px-6 m-2 py-3 bg-yellow-600 dark:bg-teal-700 hover:bg-slate-800 hover:dark:bg-teal-800 rounded text-white flex items-center justify-center"
+        onClick={deleteAllImages}
+        >
+          Clear all
+        </button>}
+      </div>
       <div className="flex flex-wrap p-6 m-6">
         {image
           .slice(0)
@@ -273,11 +290,14 @@ const Home = () => {
             return (
               <div
                 key={index}
-                class="max-w-sm m-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                class="max-w-sm m-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 relative"
               >
                 <a href="#">
-                  <img class="rounded-t-lg" src={url} alt="Wait for 5 min before sending another request or change api or contact Gaurav" />
+                  <img className="rounded-t-lg" src={url} alt="Wait for 5 min before sending another request or change api or contact Gaurav" />
                 </a>
+                <button className="absolute text-red-600 text-3xl right-6 top-2" onClick={() => deleteImage(url)}>
+                  X
+                </button>
                 <div class="p-5 max-h-48 overflow-y-auto ">
                   <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                     {text}

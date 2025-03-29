@@ -191,12 +191,19 @@ const Home = () => {
           </div>
         </div>
         <button
-          className="px-6 m-2 py-3 bg-yellow-600 dark:bg-teal-700 hover:bg-slate-800 hover:dark:bg-teal-800 rounded text-white"
+          className="px-6 m-2 py-3 bg-yellow-600 dark:bg-teal-700 hover:bg-slate-800 hover:dark:bg-teal-800 rounded text-white flex items-center justify-center"
           onClick={() => setSend((send) => !send)}
           disabled={sendDisabled}
         >
-          send
-        </button>
+          {sendDisabled ? (
+          <>
+              <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-3"></div>
+              Sending...
+          </>
+         ) : (
+        "Send"
+        )}
+      </button>
         {/* <button className="px-6 m-2 py-3 bg-yellow-600 dark:bg-teal-700 hover:bg-slate-800 hover:dark:bg-teal-800 rounded text-white">
           choose epub
         </button> */}

@@ -268,10 +268,6 @@ const Home = () => {
                 <div class="p-5 max-h-48 overflow-y-auto ">
                   <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                     {text}
-                    {/* <span className="font-bold">Text:</span> {text.length > 100
-                      ? text.substring(0, 100) + "...."
-                      : text} */}
-                    
                   </p>
                 </div>
               </div>

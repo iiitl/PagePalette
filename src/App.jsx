@@ -4,11 +4,13 @@ import Home from "./pages/home";
 import Footer from "./utlis/footer";
 import Lottie from "react-lottie";
 import * as animationData from "./animations/animations.json";
+
 import ThemeToggle from './utlis/themetoggler';
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
+
 
 const App = () => {
   const [youtubeID] = useState("eGSUvfVt3k4");

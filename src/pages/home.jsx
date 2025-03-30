@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ReactReader } from "react-reader";
+import { ReactReader, ReactReaderStyle } from "react-reader";
 import close from "../images/close.png";
 
 import percyjackson from "../books/percyjackson.epub"
@@ -7,8 +7,10 @@ import percyjackson from "../books/percyjackson.epub"
 import gameofthrones from "../books/gameofthrones.epub"
 import harrypotter from "../books/harrypotter.epub"
 import mahabharat from "../books/mahabharat.epub"
+import { useTheme } from "../contexts/ThemeContext";
 
 const Home = () => {
+  const { theme } = useTheme();
   const [location, setLocation] = useState(0);
   const [selections, setSelections] = useState([]);
   const [rendition, setRendition] = useState(undefined);
@@ -34,6 +36,22 @@ const Home = () => {
     gameofthrones,
     percyjackson,
   ];
+
+  function updateTheme(rendition, theme) {
+    const themes = rendition.themes
+    switch (theme) {
+      case 'dark': {
+        themes.override('color', '#fff')
+        themes.override('background', '#000')
+        break
+      }
+      default: {
+        themes.override('color', '#000')
+        themes.override('background', '#fff')
+        break
+      }
+    }
+  }
   
   useEffect(() => {
     if (rendition) {
@@ -59,6 +77,12 @@ const Home = () => {
       };
     }
   }, [setSelections, rendition]);
+
+  useEffect(() => {
+    if (rendition) {
+      updateTheme(rendition, theme)
+    }
+  }, [theme])
   
   useEffect(() => {
     if (send && selections.length > 0) {
@@ -112,6 +136,7 @@ const Home = () => {
       className="bg-white border-gray-200 dark:bg-teal-950 dark:text-white"
       // style={{ height: "100vh" }}
     >
+    {selections.length>0 && (
       <div className="p-6 mx-6 rounded-xl flex justify-between bg-yellow-50 dark:bg-teal-900 ">
         <div className="mx-6">{selections[selections.length - 1]?.text}</div>
         <button
@@ -124,7 +149,7 @@ const Home = () => {
           <img src={close} class="size-11" alt="PagePallete Logo" />
         </button>
       </div>
-
+    )}
       <div style={{ height: "80vh" }} className="m-6">
         <ReactReader
           url= {epubs[bookno]} // "https://react-reader.metabits.no/files/alice.epub"
@@ -134,19 +159,19 @@ const Home = () => {
             allowPopups: true, // Adds `allow-popups` to sandbox-attribute
             allowScriptedContent: true, // Adds `allow-scripts` to sandbox-attribute
           }}
+          readerStyles={theme === 'dark' ? darkReaderTheme : lightReaderTheme}
           getRendition={(_rendition) => {
+            updateTheme(_rendition, theme)
             setRendition(_rendition);
           }}
         />
       </div>
       <div className="m-6 flex flex-wrap justify-around pb-16">
-        {/* <button className="px-6 m-2 py-3 bg-yellow-600 dark:bg-teal-700 hover:bg-slate-800 hover:dark:bg-teal-800 rounded text-white">
-          choose model
-        </button> */}
+        {/* Model Selection Dropdown - Improved Styling */}
         <div className="relative">
           <button
             id="dropdownDefaultButton"
-            className="text-white px-6 m-2 py-3 bg-yellow-600 dark:bg-teal-700 hover:bg-slate-800 hover:dark:bg-teal-800 rounded  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium  text-sm text-center inline-flex items-center "
+            className="text-white px-6 m-2 py-3 bg-teal-700 hover:bg-teal-800 rounded-lg font-medium text-sm text-center inline-flex items-center border border-teal-600"
             type="button"
             onClick={() => {
               ToggleDropDown(!dropdown);
@@ -172,12 +197,12 @@ const Home = () => {
           </button>
 
           <div
-            className={`z-10 absolute ${
+            className={`z-10 absolute mt-1 ${
               dropdown || "hidden"
-            } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
+            } bg-teal-900 rounded-lg shadow-lg w-60 border border-teal-800`}
           >
             <ul
-              className="py-2 text-sm text-gray-700 dark:text-gray-200"
+              className="py-1 text-sm text-white"
               aria-labelledby="dropdownDefaultButton"
             >
               {models.map((item, index) => {
@@ -188,9 +213,10 @@ const Home = () => {
                         console.log(index)
                         setmodelno(index);
                         ToggleDropDown((dropdown) => !dropdown);
-
                       }}
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      className={`block w-full text-left px-4 py-3 hover:bg-teal-800 ${
+                        modelno === index ? "bg-teal-800" : ""
+                      }`}
                     >
                       {item.split('/')[1]}
                     </button>
@@ -220,7 +246,7 @@ const Home = () => {
         <div className="relative max-w-96">
           <button
             id="dropdownDefaultButton"
-            className="text-white px-6 m-2 py-3 bg-yellow-600 dark:bg-teal-700 hover:bg-slate-800 hover:dark:bg-teal-800 rounded  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium  text-sm text-center inline-flex items-center "
+            className="text-white px-6 m-2 py-3 bg-teal-700 hover:bg-teal-800 rounded-lg font-medium text-sm text-center inline-flex items-center border border-teal-600"
             type="button"
             onClick={() => {
               ToggleDropDown2(!dropdown2);
@@ -247,12 +273,12 @@ const Home = () => {
           </button>
 
           <div
-            className={`z-10 absolute ${
+            className={`z-10 absolute mt-1 ${
               dropdown2 || "hidden"
-            } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
+            } bg-teal-900 rounded-lg shadow-lg w-60 border border-teal-800`}
           >
             <ul
-              className="py-2 text-sm text-gray-700 dark:text-gray-200"
+              className="py-1 text-sm text-white"
               aria-labelledby="dropdownDefaultButton"
             >
               {epubs.map((item, index) => {
@@ -264,7 +290,9 @@ const Home = () => {
                         setbookno(index);
                         ToggleDropDown2((dropdown2) => !dropdown2);
                       }}
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      className={`block w-full text-left px-4 py-3 hover:bg-teal-800 ${
+                        bookno === index ? "bg-teal-800" : ""
+                      }`}
                     >
                       {item.replace("/static/media/", "").split('.')[0]}
                     </button>
@@ -310,5 +338,51 @@ const Home = () => {
     </div>
   );
 };
+
+const lightReaderTheme = {
+  ...ReactReaderStyle,
+  readerArea: {
+    ...ReactReaderStyle.readerArea,
+    transition: undefined,
+  },
+}
+
+
+const darkReaderTheme = {
+  ...ReactReaderStyle,
+  arrow: {
+    ...ReactReaderStyle.arrow,
+    color: 'white',
+  },
+  arrowHover: {
+    ...ReactReaderStyle.arrowHover,
+    color: '#ccc',
+  },
+  readerArea: {
+    ...ReactReaderStyle.readerArea,
+    backgroundColor: '#000',
+    transition: undefined,
+  },
+  titleArea: {
+    ...ReactReaderStyle.titleArea,
+    color: '#ccc',
+  },
+  tocArea: {
+    ...ReactReaderStyle.tocArea,
+    background: '#111',
+  },
+  tocButtonExpanded: {
+    ...ReactReaderStyle.tocButtonExpanded,
+    background: '#222',
+  },
+  tocButtonBar: {
+    ...ReactReaderStyle.tocButtonBar,
+    background: '#fff',
+  },
+  tocButton: {
+    ...ReactReaderStyle.tocButton,
+    color: 'white',
+  },
+}
 
 export default Home;

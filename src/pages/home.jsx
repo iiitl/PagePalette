@@ -95,7 +95,7 @@ const Home = () => {
           `https://api-inference.huggingface.co/models/${models[modelno]}`,
           {
             headers: {
-              Authorization: "Bearer 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",
+              Authorization: "Bearer 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",
             },
             method: "POST",
             body: JSON.stringify(data),

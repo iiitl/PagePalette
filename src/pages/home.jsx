@@ -8,6 +8,7 @@ import gameofthrones from "../books/gameofthrones.epub"
 import harrypotter from "../books/harrypotter.epub"
 import mahabharat from "../books/mahabharat.epub"
 import { useTheme } from "../contexts/ThemeContext";
+const HF_API_KEY = process.env.REACT_APP_HF_API_KEY;
 
 const Home = () => {
   const { theme } = useTheme();
@@ -95,7 +96,7 @@ const Home = () => {
           `https://api-inference.huggingface.co/models/${models[modelno]}`,
           {
             headers: {
-              Authorization: "Bearer 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",
+              Authorization: `Bearer ${HF_API_KEY}`,
             },
             method: "POST",
             body: JSON.stringify(data),
